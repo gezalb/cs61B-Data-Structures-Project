@@ -1,15 +1,22 @@
 /**
  * Class that determines whether or not a year is a leap year.
- * @author YOUR NAME HERE
+ * @author Gezal Bahmani & Levrenti Lopes
  */
 public class LeapYear {
 
     /**
-     * Update this comment to describe what this method does.
+     * Everything in Java is a class, like defining def in python but in Java is a class.
      * @source CS 61BL Lab 1
      */
     public static boolean isLeapYear(int year) {
         // TODO: Fill in this method.
+        if (year%400==0)
+            return true;
+        if (year%100==0)
+            return false;
+        if (year%4==0)
+            return true;
+        return false;
     }
 
     /** Calls isLeapYear to print correct statement. */
