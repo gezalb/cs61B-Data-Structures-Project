@@ -2,46 +2,41 @@
 public class Path {
 
     // TODO
-    private double x;
-    private double y;
     Point curr;
     Point next;
 
     public Path(double x, double y) {
-        this.x = x;
-        this.y = y;
+        this.curr =new Point();
+        this.next = new Point(x,y);
     }
 
     public double getCurrX() {
-        return this.x;
+        return curr.getX();
     }
 
     public double getCurrY() {
-        return this.y;
+        return curr.getY();
     }
 
     public double getNextX() {
-        return this.x;
+        return next.getX();
     }
 
     public double getNextY() {
-        return this.y;
+        return next.getY();
     }
 
     public Point getCurrentPoint() {
-        return this.curr
+        return this.curr;
     }
 
-    publuc void setCurrentPoint( Point point) {
-        curr = point
+    public void setCurrentPoint( Point point) {
+        curr = point;
     }
 
     public void iterate(double dx, double dy) {
-        Point temp_curr = curr;
         this.curr = next;
-        this.next = temp_curr;
+        this.next = new Point( getCurrX()+ dx,getCurrY()+dy) ;
     }
-    public String toString() {
-        return "(" + this.x + ", " + this.y + ")";
-    }
+
 }

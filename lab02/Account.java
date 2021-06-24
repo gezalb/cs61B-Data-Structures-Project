@@ -6,31 +6,35 @@ public class Account {
 
     public int balance;
     public Account parentAccount;
-    public Account(int balance,Account parentAccount) {
-        this.balance = balance
+
+    public Account(int balance, Account parentAccount) {
+        this.balance = balance;
         this.parentAccount = parentAccount;
     }
-    public Account(int balance) {
-        this.balance = balance
-        this.parentAccount = null
-    }
 
-    /** Initialize an account with the given balance. */
     public Account(int balance) {
         this.balance = balance;
+        this.parentAccount = null;
     }
 
-    /** Returns the balance for the current account. */
+    /**
+     * Initialize an account with the given balance.
+     */
+
+    /**
+     * Returns the balance for the current account.
+     */
     public int getBalance() {
         return balance;
     }
 
-    /** Deposits amount into the current account. */
+    /**
+     * Deposits amount into the current account.
+     */
     public void deposit(int amount) {
         if (amount < 0) {
             System.out.println("Cannot deposit negative amount.");
-        }
-        else {
+        } else {
             balance += amount;
         }
     }
@@ -44,24 +48,26 @@ public class Account {
         // TODO
         if (amount < 0) {
             System.out.println("Cannot withdraw negative amount.");
-                return false;
-            }
-
+            return false;
         }
         else if (balance < amount) {
-            System.out.println("Insufficient funds");
-            return false;
-            if (parentAccount.withdraw(amount-balance)) {
-                balance = 0;
-                return true;}
-            else
+            if (parentAccount == null) {
                 System.out.println("Insufficient funds");
                 return false;
+            }
+            if (parentAccount.withdraw(amount - balance)) {
+                balance = 0;
+                return true;
+            }
+            else {
+                System.out.println("Insufficient funds");
+                return false;
+            }
         }
         else {
-            balance -= amount;
-            return true;
-        }
+                balance -= amount;
+                return true;
+            }
     }
 
     /**
@@ -72,6 +78,8 @@ public class Account {
         // TODO
         int tempval = other.getBalance();
         this.deposit(tempval);
-        other.balnce= 0;
+        other.balance = 0;
     }
 }
+
+
