@@ -54,6 +54,10 @@ public class Measurement {
     public Measurement plus(Measurement m2) {
         int x = this.feet + m2.getFeet();
         int y= this.inches + m2.getInches();
+        if (y > 12) {
+            x= x+1;
+            y = y-12;
+        }
         return new Measurement(x,y); // provided to allow the file to compile
     }
 
@@ -64,6 +68,10 @@ public class Measurement {
     public Measurement minus(Measurement m2) {
         int x = this.feet - m2.getFeet();
         int y= this.inches - m2.getInches();
+        if (y<0) {
+            x= x-1;
+            y = y+12;
+        }
         return new Measurement(x,y); // provided to allow the file to compile
     }
 
@@ -76,6 +84,13 @@ public class Measurement {
     public Measurement multiple(int multipleAmount) {
         int x= this.feet *  multipleAmount;
         int y= this.inches *  multipleAmount;
+        if (y>12) {
+            int temp;
+            temp = x*12 + y;
+            x =temp / 12;
+            y= temp % 12;
+        }
+
         return new Measurement(x,y); // provided to allow the file to compile
     }
 
