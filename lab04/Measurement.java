@@ -1,10 +1,16 @@
+import org.junit.Test;
+
 public class Measurement {
+    int feet;
+    int inches;
 
     /**
      * Constructor: initialize this object to be a measurement of 0 feet, 0
      * inches
      */
     public Measurement() {
+        this.feet= 0;
+        this.inches= 0;
 
     }
 
@@ -13,6 +19,7 @@ public class Measurement {
      * the number of inches
      */
     public Measurement(int feet) {
+        this.feet= feet;
 
     }
 
@@ -22,6 +29,8 @@ public class Measurement {
      * initialization
      */
     public Measurement(int feet, int inches) {
+        this.feet = feet;
+        this.inches= inches;
 
     }
 
@@ -30,7 +39,7 @@ public class Measurement {
      * Measurement has 1 foot and 6 inches, this method should return 1.
      */
     public int getFeet() {
-        return 0; // provided to allow the file to compile
+        return this.feet; // provided to allow the file to compile
     }
 
     /**
@@ -38,12 +47,14 @@ public class Measurement {
      * Measurement has 1 foot and 6 inches, this method should return 6.
      */
     public int getInches() {
-        return 0; // provided to allow the file to compile
+        return this.inches; // provided to allow the file to compile
     }
 
     /** Adds the argument m2 to the current measurement */
     public Measurement plus(Measurement m2) {
-        return new Measurement(); // provided to allow the file to compile
+        int x = this.feet + m2.getFeet();
+        int y= this.inches + m2.getInches();
+        return new Measurement(x,y); // provided to allow the file to compile
     }
 
     /**
@@ -51,7 +62,9 @@ public class Measurement {
      * that m2 will always be smaller than the current measurement.
      */
     public Measurement minus(Measurement m2) {
-        return new Measurement(); // provided to allow the file to compile
+        int x = this.feet - m2.getFeet();
+        int y= this.inches - m2.getInches();
+        return new Measurement(x,y); // provided to allow the file to compile
     }
 
     /**
@@ -61,7 +74,9 @@ public class Measurement {
      * (3) should return an object that represents 1 foot, 9 inches.
      */
     public Measurement multiple(int multipleAmount) {
-        return new Measurement(); // provided to allow the file to compile
+        int x= this.feet *  multipleAmount;
+        int y= this.inches *  multipleAmount;
+        return new Measurement(x,y); // provided to allow the file to compile
     }
 
     /**
@@ -72,7 +87,9 @@ public class Measurement {
      */
     @Override
     public String toString() {
-        return new String(); // provided to allow the file to compile
+        String a = ""+ this.feet+"\'"+this.inches+"\"";
+
+        return a; // provided to allow the file to compile
     }
 
 }
