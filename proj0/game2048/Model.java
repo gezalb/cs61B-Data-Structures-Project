@@ -120,6 +120,7 @@ public class Model extends Observable {
                 changed = mergeSameValueNeighbors(c,r)||changed;
             }
         }
+        board.setViewingPerspective(Side.NORTH);
 
         checkGameOver();
         if (changed) {
