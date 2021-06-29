@@ -38,6 +38,7 @@ public class Model extends Observable {
      * to the bottom-left corner. Used for testing purposes. */
     public Model(int[][] rawValues, int score, int maxScore, boolean gameOver) {
         // TODO: Fill in this constructor.
+        this.score= score;
         board = new Board(rawValues,score);
         this.maxScore = maxScore;
         this.gameOver = gameOver;
@@ -112,6 +113,13 @@ public class Model extends Observable {
         // TODO: Modify this.board (and perhaps this.score) to account
         // for the tilt to the Side SIDE. If the board changed, set the
         // changed local variable to true.
+        board.setViewingPerspective(side);
+        for (int c=0 ; c< board.size() ; c++ ) {
+            for (int r= board.size()-1; r >= 0 ; r--) {
+                changed = moveUpEmptySpace(c,r) || changed;
+                changed = mergeSameValueNeighbors(c,r)||changed;
+            }
+        }
 
         checkGameOver();
         if (changed) {
@@ -119,10 +127,41 @@ public class Model extends Observable {
         }
         return changed;
     }
+    public boolean moveUpEmptySpace (int c, int r) {
+        Tile current = board.tile(c,r);
+        if (nextAvailabale(c,r-1,board)!= null && current == null) {
+            board.move(c,r,nextAvailabale(c,r-1,board));
+            return true;
+        }
+        return false;
+    }
 
-    /** Checks if the game is over and sets the gameOver variable
-     *  appropriately.
-     */
+    public boolean mergeSameValueNeighbors(int c,int r) {
+        Tile current = board.tile(c, r);
+        Tile next = nextAvailabale(c, r - 1, board);
+        if (next != null && current != null && current.value() == next.value()) {
+            board.move(c, r, next);
+            score += board.tile(c,r).value();
+            return true;
+        }
+        return false;
+    }
+
+    public static Tile nextAvailabale(int c, int r, Board b) {
+        for (int i = r; i >= 0 ; i--) {
+            Tile current = b.tile(c, i);
+            if (current != null) {
+                return current;
+            }
+        }
+        return null;
+    }
+
+
+
+        /** Checks if the game is over and sets the gameOver variable
+         *  appropriately.
+         */
     private void checkGameOver() {
         gameOver = checkGameOver(board);
     }
