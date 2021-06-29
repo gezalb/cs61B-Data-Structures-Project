@@ -5,7 +5,7 @@ import java.util.Observable;
 
 
 /** The state of a game of 2048.
- *  @author TODO: YOUR NAME HERE
+ *  @author TODO: Gezal Bahmani
  */
 public class Model extends Observable {
     /** Current contents of the board. */
@@ -29,6 +29,8 @@ public class Model extends Observable {
      *  and score 0. */
     public Model(int size) {
         // TODO: Fill in this constructor.
+        this.score = 0;
+        board = new Board(size);
     }
 
     /** A new 2048 game where RAWVALUES contain the values of the tiles
@@ -36,6 +38,9 @@ public class Model extends Observable {
      * to the bottom-left corner. Used for testing purposes. */
     public Model(int[][] rawValues, int score, int maxScore, boolean gameOver) {
         // TODO: Fill in this constructor.
+        board = new Board(rawValues,score);
+        this.maxScore = maxScore;
+        this.gameOver = gameOver;
     }
 
     /** Return the current Tile at (COL, ROW), where 0 <= ROW < size(),
@@ -132,6 +137,13 @@ public class Model extends Observable {
      * */
     public static boolean emptySpaceExists(Board b) {
         // TODO: Fill in this function.
+        for (int i=0; i<b.size();i++) {
+            for (int j=0 ; j<b.size() ; j++) {
+                if (b.tile(i,j)== null) {
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
@@ -142,6 +154,15 @@ public class Model extends Observable {
      */
     public static boolean maxTileExists(Board b) {
         // TODO: Fill in this function.
+        for (int i= 0; i<b.size(); i++) {
+            for ( int j=0 ; j < b.size() ; j++) {
+                if (b.tile(i,j)!= null) {
+                    if (b.tile(i,j).value() == MAX_PIECE) {
+                        return true;
+                    }
+                }
+            }
+        }
         return false;
     }
 
@@ -152,6 +173,23 @@ public class Model extends Observable {
      * 2. There are two adjacent tiles with the same value.
      */
     public static boolean atLeastOneMoveExists(Board b) {
+        for (int c=0 ; c< b.size()-1 ; c++) {
+            for (int r=0 ; r< b.size()-1 ; r++) {
+                if (emptySpaceExists(b)) {
+                    return true; }
+                else if  (b.tile(c,r).value()== b.tile(c, r+1).value()) {
+                    return true; }
+                else if (b.tile(c,r).value()== b.tile(c+1, r).value()) {
+                    return true; }
+                else if (b.tile(c,r).value()== b.tile(c+1, r).value()) {
+                    return true; }
+                else if (b.tile(c,r+1).value()== b.tile(c+1, r+1).value()) {
+                    return true; }
+                else if (b.tile(c+1,r).value()== b.tile(c+1, r+1).value()) {
+                    return true; }
+            }
+        }
+
         // TODO: Fill in this function.
         return false;
     }
