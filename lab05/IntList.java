@@ -6,25 +6,35 @@
 
 public class IntList {
 
-    /** The integer stored by this node. */
+    /**
+     * The integer stored by this node.
+     */
     public int item;
-    /** The next node in this IntList. */
+    /**
+     * The next node in this IntList.
+     */
     public IntList next;
 
-    /** Constructs an IntList storing ITEM and next node NEXT. */
+    /**
+     * Constructs an IntList storing ITEM and next node NEXT.
+     */
     public IntList(int item, IntList next) {
         this.item = item;
         this.next = next;
     }
 
-    /** Constructs an IntList storing ITEM and no next node. */
+    /**
+     * Constructs an IntList storing ITEM and no next node.
+     */
     public IntList(int item) {
         this(item, null);
     }
 
-    /** Returns an IntList consisting of the elements in ITEMS.
+    /**
+     * Returns an IntList consisting of the elements in ITEMS.
      * IntList L = IntList.list(1, 2, 3);
-     * System.out.println(L.toString()) // Prints 1 2 3 */
+     * System.out.println(L.toString()) // Prints 1 2 3
+     */
     public static IntList of(int... items) {
         /** Check for cases when we have no element given. */
         if (items.length == 0) {
@@ -51,15 +61,15 @@ public class IntList {
     public int get(int position) {
         //TODO: YOUR CODE HERE
         IntList temp = this;
-        if (position <0) {
+        if (position < 0) {
             throw new IllegalArgumentException("invalid position");
         }
-        while (position>0) {
-            if (temp.next== null) {
+        while (position > 0) {
+            if (temp.next == null) {
                 throw new IllegalArgumentException("invalid position");
             }
             temp = temp.next;
-            position = position -1;
+            position = position - 1;
         }
         return temp.item;
     }
@@ -73,9 +83,9 @@ public class IntList {
     public String toString() {
         //TODO: YOUR CODE HERE
         IntList temp = this;
-        String A= new String();
+        String A = new String();
         while (temp.next != null) {
-            A += String.valueOf(temp.item)+ " ";
+            A += String.valueOf(temp.item) + " ";
             temp = temp.next;
         }
         if (temp.next == null) {
@@ -86,7 +96,7 @@ public class IntList {
 
     /**
      * Returns whether this and the given list or object are equal.
-     *
+     * <p>
      * NOTE: A full implementation of equals requires checking if the
      * object passed in is of the correct type, as the parameter is of
      * type Object. This also requires we convert the Object to an
@@ -104,7 +114,7 @@ public class IntList {
         IntList otherLst = (IntList) obj;
 
         //TODO: YOUR CODE HERE
-        return  otherLst.toString().equals(this.toString());
+        return otherLst.toString().equals(this.toString());
     }
 
 
@@ -116,8 +126,8 @@ public class IntList {
     public void add(int value) {
         //TODO: YOUR CODE HERE
         IntList temp = this;
-        while (temp.next !=null) {
-            temp =temp.next;
+        while (temp.next != null) {
+            temp = temp.next;
         }
         temp.next = new IntList(value, null);
     }
@@ -135,7 +145,7 @@ public class IntList {
         return Math.min(this.item, this.next.smallest());
     }
 
- //
+    //
 
     /**
      * Returns the sum of squares of all elements in the list.
@@ -144,10 +154,10 @@ public class IntList {
      */
     public int squaredSum() {
         //TODO: YOUR CODE HERE
-        if (this.next==null) {
-            return item*item;
+        if (this.next == null) {
+            return item * item;
         }
-        return this.next.squaredSum()+ item*item;
+        return this.next.squaredSum() + item * item;
     }
 
     /**
@@ -183,7 +193,8 @@ public class IntList {
         return res;
     }
 
-    /** Returns a list equal to L with all elements squared. Non-destructive.
+    /**
+     * Returns a list equal to L with all elements squared. Non-destructive.
      *
      * @param L list to non-destructively square.
      * @return the squared list.
@@ -219,7 +230,7 @@ public class IntList {
         if (temp.next == null) {
             temp.next = B;
         }
-        return  A;
+        return A;
     }
 
 
@@ -231,12 +242,11 @@ public class IntList {
      * @param B list to be on the back of the new list.
      * @return new list with A followed by B.
      */
-     public static IntList catenate(IntList A, IntList B) {
+    public static IntList catenate(IntList A, IntList B) {
         //TODO: YOUR CODE HERE
-         if (A == null) {
-             return B;
-         }
-         return new IntList (A.item , catenate(A.next,B));
-     }
-
-     }
+        if (A == null) {
+            return B;
+        }
+        return new IntList(A.item, catenate(A.next, B));
+    }
+}

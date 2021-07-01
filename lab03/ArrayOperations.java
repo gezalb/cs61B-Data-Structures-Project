@@ -27,6 +27,12 @@ public class ArrayOperations {
             return;
         }
         // TODO: YOUR CODE HERE
+        else{
+            for (int i= values.length-1 ; pos<i ;i-=1) {
+                values[i] = values[i-1];
+            }
+            values[pos] = newInt;
+        }
     }
 
     /** 
@@ -47,8 +53,50 @@ public class ArrayOperations {
      */
     public static int[][] naturalRuns(int[] A) {
         // TODO: Your CODE HERE
-        return null;
+        int count = 1;
+        for (int i= 0 ; i< A.length-1 ; i++) {
+            if (A[i] >= A[i+1]) {
+                count = count+1;
+            }
+        }
+
+    int [][] separateArray = new int[count][];
+    int positionArray [] = new int [count];
+    int counter = 1;
+    positionArray [0]= 0;
+    for (int i=0; i< A.length-1 ; i++) {
+        if (A[i] > A[i+1]) {
+            positionArray[counter] = i+1;
+            counter = counter +1;
+        }
+
     }
+    int lenArray[] = new int [count];
+    int counter2= 0;
+    int len= 1;
+    for (int i=0 ; i< A.length-1 ; i+=1) {
+        if (A[i] < A[i+1]){
+            len = len + 1;
+        }
+
+        else {
+        lenArray[counter2]= len;
+        counter2 = counter2+1;
+        len=1; }
+
+    }
+    lenArray[counter2] =len;
+    int position =0;
+    for (int i=0; i <count; i++) {
+        position= positionArray[i];
+        len= lenArray[i];
+        separateArray[i]=subarray(A,position,len);
+    }
+    return separateArray;
+
+    }
+
+
 
     /*
     * Returns the subarray of A consisting of the LEN items starting
